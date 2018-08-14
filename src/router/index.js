@@ -10,13 +10,13 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/login', component: Login },
-    { path: '/home', component: Home },
-    { path: '/Welcome', component: Welcome }
+    { path: '/home', component: Home, redirect: '/welcome', children: [{ path: '/Welcome', component: Welcome }]
+    }
   ]
 })
 
-router.beforeEach((toolbar, from, next) => {
-  if (tokenStr.path === '/login') return next()
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next()
   const tokenStr = window.sessionStorage.getItem('token')
   if (!tokenStr) return next('/login')
   next()

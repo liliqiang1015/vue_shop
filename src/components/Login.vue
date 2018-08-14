@@ -1,50 +1,50 @@
 <template>
-    <div class="login-container">
+  <div class="login-container">
 
-        <div class="login-box">
-            <div class="avatar-box">
-                <img src="../assets/images/logo.png">
-            </div>
+    <div class="login-box">
+      <div class="avatar-box">
+        <img src="../assets/images/logo.png">
+      </div>
 
-            <!-- 登录表单 -->
-            <!-- :model 绑定是表单的数据对象 -->
-            <!-- :rules 是表单的验证规则对象 -->
-            <!-- ref 是当亲 表单组件的引用对象 -->
-            <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
-                <!-- el-form-item 的 prop属性， 专门用来指定校验规则 所有的校验规则 都在 :rules 所绑定的对象中定义 -->
-                <el-form-item prop="username">
-                    <!-- el-input 是一个文本框 使用v-model指令 把文本框的值 双向绑定 -->
-                    <el-input v-model="loginForm.username">
-                        <i slot="prefix" class="iconfont icon-user"></i>
-                    </el-input>
-                </el-form-item>
+      <!-- 登录表单 -->
+      <!-- :model 绑定是表单的数据对象 -->
+      <!-- :rules 是表单的验证规则对象 -->
+      <!-- ref 是当亲 表单组件的引用对象 -->
+      <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
+        <!-- el-form-item 的 prop属性， 专门用来指定校验规则 所有的校验规则 都在 :rules 所绑定的对象中定义 -->
+        <el-form-item prop="username">
+          <!-- el-input 是一个文本框 使用v-model指令 把文本框的值 双向绑定 -->
+          <el-input v-model="loginForm.username">
+            <i slot="prefix" class="iconfont icon-user"></i>
+          </el-input>
+        </el-form-item>
 
-                <el-form-item prop="password">
-                    <el-input v-model="loginForm.password" type="password">
-                        <i slot="prefix" class="iconfont icon-3702mima"></i>
-                    </el-input>
-                </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" type="password">
+            <i slot="prefix" class="iconfont icon-3702mima"></i>
+          </el-input>
+        </el-form-item>
 
-                <el-row>
-                    <el-col :offset="15">
-                        <el-button type="primary" @click="login">登录</el-button>
-                        <el-button type="warning" @click="resetForm">重置</el-button>
-                    </el-col>
-                </el-row>
+        <el-row>
+          <el-col :offset="15">
+            <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="warning" @click="resetForm">重置</el-button>
+          </el-col>
+        </el-row>
 
-            </el-form>
-        </div>
-
+      </el-form>
     </div>
+
+  </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       loginFormRules: {
         username: [
@@ -59,20 +59,20 @@ export default {
     }
   },
   methods: {
-    resetForm () {
+    resetForm() {
       // 调用 resetFields 方法重置表单
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login() {
       // 调用validate 进行表单的预验证、
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         // 验证通过
-        const {data: res} = await this.$http.post('login',this.loginForm)
+        const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) {
           window.sessionStorage.removeItem('token')
           return this.$message.error('登录失败')
-        }this.$message.console.error('登录失败')
+        }
         this.$message.success('登录成功!')
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
