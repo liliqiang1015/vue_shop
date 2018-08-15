@@ -21,7 +21,6 @@ export default {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) return this.$message.error('获取左侧菜单失败')
       this.menulist = res.data
-      console.log(res.data)
     }
   }
 }
