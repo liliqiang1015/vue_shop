@@ -149,6 +149,10 @@ export default {
       } = await this.$http.delete('uers/' + id)
       if (res.meta.status !== 200) return this.$message.error('删除用户失败')
       this.$message.success('删除用户成功')
+      // 此时 只要把当前页面上 唯一的一条数据 从数据库中删除了 但是 userList的长度还为1 
+      if(this.userList.length === 1 && this.quertInfo.pagenum > 1) {
+        this.quertInfo.pagenum --
+      }
       this.getUserList()
     },
     // 点击按钮展示编辑对话框
