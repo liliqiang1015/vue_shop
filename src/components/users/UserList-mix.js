@@ -117,7 +117,7 @@ export default {
       this.$refs.addFormRef.resetFields()
     },
     addUser() {
-        this.$refs.editFormRef.validate(async valid => {
+      this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('users', this.addForm)
         if (res.meta.status !== 201) return this.$message.error('添加用户失败')
@@ -154,7 +154,7 @@ export default {
     // 点击按钮展示编辑对话框
     async showEditDialog(id) {
       const { data: res } = await this.$http.get('users/' + id)
-      if(res.meta.status !== 200) return this.$message.error('查询用户失败')
+      if (res.meta.status !== 200) return this.$message.error('查询用户失败')
       // 把查询到的数据 直接复制给 editForm
       this.editForm = res.data
       this.editDialogVisible = true
@@ -166,13 +166,13 @@ export default {
     // 点击按钮保存对用户信息的修改、
     savaUserInfo() {
       this.$refs.editFormRef.validate(async valid => {
-        if(!valid) return
+        if (!valid) return
         const {data: res} = await this.$http.put('users/' + this.editForm.id, {
           mobile: this.editForm.mobile,
           email: this.editForm.email
         })
 
-        if(res.meta.status !== 200) return this.$message.error('编辑用户失败')
+        if (res.meta.status !== 200) return this.$message.error('编辑用户失败')
         this.$message.success('编辑用户成功')
         this.getUserList()
         this.editDialogVisible = false

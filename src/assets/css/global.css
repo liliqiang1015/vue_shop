@@ -13,17 +13,17 @@ i.iconfont {
   font-size: 13px;
 }
 
-/* 覆盖默认卡片视图的阴影想过 */
+/* 覆盖默认卡片视图的阴影效果 */
 .el-card {
   box-shadow: 0 1px px rgba(0,0,0,0.15) !important;
   margin-top: 15px;
 }
-
+/* 覆盖表格的默认样式 */
 .el-table {
   font-size: 12px;
   margin-top: 15px;
 }
-
+/* 覆盖分页的样式 */
 .el-pagination {
   margin-top: 15px;
 }
